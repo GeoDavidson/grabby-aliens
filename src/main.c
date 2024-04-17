@@ -5,12 +5,14 @@
 
 typedef struct node {
     Vector2 position;
+    Color color;
     struct node *next;
 } node_t;
 
 void newNode(node_t **head, node_t node) {
     node_t *newNode = (node_t *)malloc(sizeof(node_t));
     newNode->position = node.position;
+    newNode->color = node.color;
     newNode->next = NULL;
 
     if (*head == NULL) {
@@ -82,13 +84,15 @@ int main() {
 
     node_t *head = NULL;
 
-    Vector2 startPos = {400.0f, 224.0f};
-    node_t node = {startPos, NULL};
+    Vector2 startPos1 = {272.0f, 192.0f};
+    node_t node1 = {startPos1, RED, NULL};
+    newNode(&head, node1);
 
-    newNode(&head, node);
+    Vector2 startPos2 = {464.0f, 288.0f};
+    node_t node2 = {startPos2, BLUE, NULL};
+    newNode(&head, node2);
 
-    node_t *current1 = NULL;
-    node_t *current2 = NULL;
+    node_t *current = NULL;
 
     int layer = 1;
 
@@ -99,37 +103,61 @@ int main() {
     while (WindowShouldClose() == false) {
         timer -= GetFrameTime();
         if (timer < 0) {
-            node.position.x = startPos.x + layer * 16.0f;
-            node.position.y = startPos.y;
-            newNode(&head, node);
+            node1.position.x = startPos1.x + layer * 16.0f;
+            node1.position.y = startPos1.y;
+            newNode(&head, node1);
+            node2.position.x = startPos2.x + layer * 16.0f;
+            node2.position.y = startPos2.y;
+            newNode(&head, node2);
             for (int i = 0; i < layer - 1; i++) {
-                node.position.x -= 16.0f;
-                node.position.y += 16.0f;
-                newNode(&head, node);
+                node1.position.x -= 16.0f;
+                node1.position.y += 16.0f;
+                newNode(&head, node1);
+                node2.position.x -= 16.0f;
+                node2.position.y += 16.0f;
+                newNode(&head, node2);
             }
-            node.position.x = startPos.x;
-            node.position.y = startPos.y + layer * 16.0f;
-            newNode(&head, node);
+            node1.position.x = startPos1.x;
+            node1.position.y = startPos1.y + layer * 16.0f;
+            newNode(&head, node1);
+            node2.position.x = startPos2.x;
+            node2.position.y = startPos2.y + layer * 16.0f;
+            newNode(&head, node2);
             for (int i = 0; i < layer - 1; i++) {
-                node.position.x -= 16.0f;
-                node.position.y -= 16.0f;
-                newNode(&head, node);
+                node1.position.x -= 16.0f;
+                node1.position.y -= 16.0f;
+                newNode(&head, node1);
+                node2.position.x -= 16.0f;
+                node2.position.y -= 16.0f;
+                newNode(&head, node2);
             }
-            node.position.x = startPos.x + layer * -16.0f;
-            node.position.y = startPos.y;
-            newNode(&head, node);
+            node1.position.x = startPos1.x + layer * -16.0f;
+            node1.position.y = startPos1.y;
+            newNode(&head, node1);
+            node2.position.x = startPos2.x + layer * -16.0f;
+            node2.position.y = startPos2.y;
+            newNode(&head, node2);
             for (int i = 0; i < layer - 1; i++) {
-                node.position.x += 16.0f;
-                node.position.y -= 16.0f;
-                newNode(&head, node);
+                node1.position.x += 16.0f;
+                node1.position.y -= 16.0f;
+                newNode(&head, node1);
+                node2.position.x += 16.0f;
+                node2.position.y -= 16.0f;
+                newNode(&head, node2);
             }
-            node.position.x = startPos.x;
-            node.position.y = startPos.y + layer * -16.0f;
-            newNode(&head, node);
+            node1.position.x = startPos1.x;
+            node1.position.y = startPos1.y + layer * -16.0f;
+            newNode(&head, node1);
+            node2.position.x = startPos2.x;
+            node2.position.y = startPos2.y + layer * -16.0f;
+            newNode(&head, node2);
             for (int i = 0; i < layer - 1; i++) {
-                node.position.x += 16.0f;
-                node.position.y += 16.0f;
-                newNode(&head, node);
+                node1.position.x += 16.0f;
+                node1.position.y += 16.0f;
+                newNode(&head, node1);
+                node2.position.x += 16.0f;
+                node2.position.y += 16.0f;
+                newNode(&head, node2);
             }
             layer += 1;
             timer = 0.5;
@@ -139,10 +167,10 @@ int main() {
 
         ClearBackground(WHITE);
 
-        current1 = head;
-        while (current1 != NULL) {
-            DrawRectangle(current1->position.x, current1->position.y, 16, 16, RED);
-            current1 = current1->next;
+        current = head;
+        while (current != NULL) {
+            DrawRectangle(current->position.x, current->position.y, 16, 16, current->color);
+            current = current->next;
         }
 
         DrawText(TextFormat("%d", GetFPS()), 5, 5, 25, BLACK);
