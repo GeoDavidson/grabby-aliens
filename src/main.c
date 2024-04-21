@@ -92,17 +92,19 @@ int main() {
     node_t node2 = {startPos2, BLUE, NULL};
     newNode(&head, node2);
 
-    node_t *current = NULL;
+    node_t *current1 = NULL;
+    node_t *current2 = NULL;
 
     int layer = 1;
 
     double timer = 0;
+    bool touched = false;
 
     SetTargetFPS(60);
 
     while (WindowShouldClose() == false) {
         timer -= GetFrameTime();
-        if (timer < 0) {
+        if (timer < 0 && touched == false) {
             node1.position.x = startPos1.x + layer * 16.0f;
             node1.position.y = startPos1.y;
             newNode(&head, node1);
@@ -160,17 +162,31 @@ int main() {
                 newNode(&head, node2);
             }
             layer += 1;
-            timer = 0.5;
+            timer = 0.3;
+        }
+
+        current1 = head;
+        while (current1 != NULL) {
+            current2 = head;
+            while (current2 != NULL) {
+                if (current1 != current2) {
+                    if (current1->position.x == current2->position.x && current1->position.y == current2->position.y) {
+                        touched = true;
+                    }
+                }
+                current2 = current2->next;
+            }
+            current1 = current1->next;
         }
 
         BeginDrawing();
 
         ClearBackground(WHITE);
 
-        current = head;
-        while (current != NULL) {
-            DrawRectangle(current->position.x, current->position.y, 16, 16, current->color);
-            current = current->next;
+        current1 = head;
+        while (current1 != NULL) {
+            DrawRectangle(current1->position.x, current1->position.y, 16, 16, current1->color);
+            current1 = current1->next;
         }
 
         DrawText(TextFormat("%d", GetFPS()), 5, 5, 25, BLACK);
