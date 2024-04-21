@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ZOOM_SPEED 0.025f
+
 typedef struct node {
     Vector2 position;
     Color color;
@@ -104,7 +106,26 @@ int main() {
     double timer = 0;
     bool nothing = true;
 
+    Camera2D camera = {0};
+    camera.zoom = 0.25f;
+
+    Vector2 mouseDelta = {0.0f, 0.0f};
+    float mouseWheel = 0.0f;
+
     while (WindowShouldClose() == false) {
+        mouseWheel = GetMouseWheelMove();
+        if (mouseWheel != 0) {
+            camera.target = GetScreenToWorld2D(GetMousePosition(), camera);
+            camera.offset = GetMousePosition();
+            camera.zoom = Clamp(camera.zoom + mouseWheel * ZOOM_SPEED, ZOOM_SPEED, 10.0f);
+        }
+
+        if (IsMouseButtonDown(MOUSE_BUTTON_MIDDLE)) {
+            mouseDelta = GetMouseDelta();
+            camera.target.x += -1 * mouseDelta.x / camera.zoom;
+            camera.target.y += -1 * mouseDelta.y / camera.zoom;
+        }
+
         timer -= GetFrameTime();
         if (timer < 0) {
             node1.position.x = startPos1.x + layer * 16.0f;
@@ -551,11 +572,15 @@ int main() {
 
         ClearBackground(WHITE);
 
+        BeginMode2D(camera);
+
         current1 = head;
         while (current1 != NULL) {
             DrawRectangle(current1->position.x, current1->position.y, 16, 16, current1->color);
             current1 = current1->next;
         }
+
+        EndMode2D();
 
         DrawText(TextFormat("%d", GetFPS()), 5, 5, 25, BLACK);
 
