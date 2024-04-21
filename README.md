@@ -1,3 +1,3 @@
 # Grabby Aliens
 
-Playing around with Raylib.
+Grabby aliens simulations.
