@@ -98,85 +98,307 @@ int main() {
     int layer = 1;
 
     double timer = 0;
-    bool touched = false;
+    bool nothing = true;
 
     SetTargetFPS(60);
 
     while (WindowShouldClose() == false) {
         timer -= GetFrameTime();
-        if (timer < 0 && touched == false) {
+        if (timer < 0) {
             node1.position.x = startPos1.x + layer * 16.0f;
             node1.position.y = startPos1.y;
-            newNode(&head, node1);
+
+            current1 = head;
+            while (current1 != NULL) {
+                if (current1->position.x == node1.position.x && current1->position.y == node1.position.y) {
+                    nothing = false;
+                    break;
+                }
+                current1 = current1->next;
+            }
+
+            if (nothing) {
+                newNode(&head, node1);
+            } else {
+                nothing = true;
+            }
+
             node2.position.x = startPos2.x + layer * 16.0f;
             node2.position.y = startPos2.y;
-            newNode(&head, node2);
+
+            current1 = head;
+            while (current1 != NULL) {
+                if (current1->position.x == node2.position.x && current1->position.y == node2.position.y) {
+                    nothing = false;
+                    break;
+                }
+                current1 = current1->next;
+            }
+
+            if (nothing) {
+                newNode(&head, node2);
+            } else {
+                nothing = true;
+            }
+
             for (int i = 0; i < layer - 1; i++) {
                 node1.position.x -= 16.0f;
                 node1.position.y += 16.0f;
-                newNode(&head, node1);
+
+                current1 = head;
+                while (current1 != NULL) {
+                    if (current1->position.x == node1.position.x && current1->position.y == node1.position.y) {
+                        nothing = false;
+                        break;
+                    }
+                    current1 = current1->next;
+                }
+
+                if (nothing) {
+                    newNode(&head, node1);
+                } else {
+                    nothing = true;
+                }
+
                 node2.position.x -= 16.0f;
                 node2.position.y += 16.0f;
-                newNode(&head, node2);
+
+                current1 = head;
+                while (current1 != NULL) {
+                    if (current1->position.x == node2.position.x && current1->position.y == node2.position.y) {
+                        nothing = false;
+                        break;
+                    }
+                    current1 = current1->next;
+                }
+
+                if (nothing) {
+                    newNode(&head, node2);
+                } else {
+                    nothing = true;
+                }
             }
             node1.position.x = startPos1.x;
             node1.position.y = startPos1.y + layer * 16.0f;
-            newNode(&head, node1);
+
+            current1 = head;
+            while (current1 != NULL) {
+                if (current1->position.x == node1.position.x && current1->position.y == node1.position.y) {
+                    nothing = false;
+                    break;
+                }
+                current1 = current1->next;
+            }
+
+            if (nothing) {
+                newNode(&head, node1);
+            } else {
+                nothing = true;
+            }
+
             node2.position.x = startPos2.x;
             node2.position.y = startPos2.y + layer * 16.0f;
-            newNode(&head, node2);
+
+            current1 = head;
+            while (current1 != NULL) {
+                if (current1->position.x == node2.position.x && current1->position.y == node2.position.y) {
+                    nothing = false;
+                    break;
+                }
+                current1 = current1->next;
+            }
+
+            if (nothing) {
+                newNode(&head, node2);
+            } else {
+                nothing = true;
+            }
+
             for (int i = 0; i < layer - 1; i++) {
                 node1.position.x -= 16.0f;
                 node1.position.y -= 16.0f;
-                newNode(&head, node1);
+
+                current1 = head;
+                while (current1 != NULL) {
+                    if (current1->position.x == node1.position.x && current1->position.y == node1.position.y) {
+                        nothing = false;
+                        break;
+                    }
+                    current1 = current1->next;
+                }
+
+                if (nothing) {
+                    newNode(&head, node1);
+                } else {
+                    nothing = true;
+                }
+
                 node2.position.x -= 16.0f;
                 node2.position.y -= 16.0f;
-                newNode(&head, node2);
+
+                current1 = head;
+                while (current1 != NULL) {
+                    if (current1->position.x == node2.position.x && current1->position.y == node2.position.y) {
+                        nothing = false;
+                        break;
+                    }
+                    current1 = current1->next;
+                }
+
+                if (nothing) {
+                    newNode(&head, node2);
+                } else {
+                    nothing = true;
+                }
             }
             node1.position.x = startPos1.x + layer * -16.0f;
             node1.position.y = startPos1.y;
-            newNode(&head, node1);
+
+            current1 = head;
+            while (current1 != NULL) {
+                if (current1->position.x == node1.position.x && current1->position.y == node1.position.y) {
+                    nothing = false;
+                    break;
+                }
+                current1 = current1->next;
+            }
+
+            if (nothing) {
+                newNode(&head, node1);
+            } else {
+                nothing = true;
+            }
+
             node2.position.x = startPos2.x + layer * -16.0f;
             node2.position.y = startPos2.y;
-            newNode(&head, node2);
+
+            current1 = head;
+            while (current1 != NULL) {
+                if (current1->position.x == node2.position.x && current1->position.y == node2.position.y) {
+                    nothing = false;
+                    break;
+                }
+                current1 = current1->next;
+            }
+
+            if (nothing) {
+                newNode(&head, node2);
+            } else {
+                nothing = true;
+            }
+
             for (int i = 0; i < layer - 1; i++) {
                 node1.position.x += 16.0f;
                 node1.position.y -= 16.0f;
-                newNode(&head, node1);
+
+                current1 = head;
+                while (current1 != NULL) {
+                    if (current1->position.x == node1.position.x && current1->position.y == node1.position.y) {
+                        nothing = false;
+                        break;
+                    }
+                    current1 = current1->next;
+                }
+
+                if (nothing) {
+                    newNode(&head, node1);
+                } else {
+                    nothing = true;
+                }
+
                 node2.position.x += 16.0f;
                 node2.position.y -= 16.0f;
-                newNode(&head, node2);
+
+                current1 = head;
+                while (current1 != NULL) {
+                    if (current1->position.x == node2.position.x && current1->position.y == node2.position.y) {
+                        nothing = false;
+                        break;
+                    }
+                    current1 = current1->next;
+                }
+
+                if (nothing) {
+                    newNode(&head, node2);
+                } else {
+                    nothing = true;
+                }
             }
             node1.position.x = startPos1.x;
             node1.position.y = startPos1.y + layer * -16.0f;
-            newNode(&head, node1);
+
+            current1 = head;
+            while (current1 != NULL) {
+                if (current1->position.x == node1.position.x && current1->position.y == node1.position.y) {
+                    nothing = false;
+                    break;
+                }
+                current1 = current1->next;
+            }
+
+            if (nothing) {
+                newNode(&head, node1);
+            } else {
+                nothing = true;
+            }
+
             node2.position.x = startPos2.x;
             node2.position.y = startPos2.y + layer * -16.0f;
-            newNode(&head, node2);
+
+            current1 = head;
+            while (current1 != NULL) {
+                if (current1->position.x == node2.position.x && current1->position.y == node2.position.y) {
+                    nothing = false;
+                    break;
+                }
+                current1 = current1->next;
+            }
+
+            if (nothing) {
+                newNode(&head, node2);
+            } else {
+                nothing = true;
+            }
+
             for (int i = 0; i < layer - 1; i++) {
                 node1.position.x += 16.0f;
                 node1.position.y += 16.0f;
-                newNode(&head, node1);
+
+                current1 = head;
+                while (current1 != NULL) {
+                    if (current1->position.x == node1.position.x && current1->position.y == node1.position.y) {
+                        nothing = false;
+                        break;
+                    }
+                    current1 = current1->next;
+                }
+
+                if (nothing) {
+                    newNode(&head, node1);
+                } else {
+                    nothing = true;
+                }
+
                 node2.position.x += 16.0f;
                 node2.position.y += 16.0f;
-                newNode(&head, node2);
+
+                current1 = head;
+                while (current1 != NULL) {
+                    if (current1->position.x == node2.position.x && current1->position.y == node2.position.y) {
+                        nothing = false;
+                        break;
+                    }
+                    current1 = current1->next;
+                }
+
+                if (nothing) {
+                    newNode(&head, node2);
+                } else {
+                    nothing = true;
+                }
             }
             layer += 1;
             timer = 0.3;
-        }
-
-        current1 = head;
-        while (current1 != NULL) {
-            current2 = head;
-            while (current2 != NULL) {
-                if (current1 != current2) {
-                    if (current1->position.x == current2->position.x && current1->position.y == current2->position.y) {
-                        touched = true;
-                    }
-                }
-                current2 = current2->next;
-            }
-            current1 = current1->next;
         }
 
         BeginDrawing();
