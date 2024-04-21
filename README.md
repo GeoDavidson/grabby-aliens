@@ -1,3 +1,3 @@
-# Expanding Aliens
+# Grabby Aliens
 
 Playing around with Raylib.
