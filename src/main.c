@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #define ZOOM_SPEED 0.025f
+#define MAX_NODES 1827
 
 typedef struct node {
     Vector2 position;
@@ -114,12 +115,12 @@ int main() {
     node_t node3 = {startPos3, BLUE, NULL};
     newNode(&head, node3);
 
-    node_t *current1 = NULL;
-    node_t *current2 = NULL;
+    node_t *current = NULL;
 
     int layer = 1;
 
     double timer = 0;
+    int count = 0;
     bool nothing = true;
 
     Camera2D camera = {0};
@@ -143,7 +144,17 @@ int main() {
         }
 
         timer -= GetFrameTime();
-        if (timer < 0) {
+
+        count = 0;
+        current = head;
+        while (current != NULL) {
+            count++;
+            current = current->next;
+        }
+
+        printf("%d\n", count);
+
+        if (timer < 0 && MAX_NODES > count) {
             node1.position.x = startPos1.x + layer * 16.0f;
             node1.position.y = startPos1.y;
 
@@ -278,10 +289,10 @@ int main() {
 
         BeginMode2D(camera);
 
-        current1 = head;
-        while (current1 != NULL) {
-            DrawRectangle(current1->position.x, current1->position.y, 16, 16, current1->color);
-            current1 = current1->next;
+        current = head;
+        while (current != NULL) {
+            DrawRectangle(current->position.x, current->position.y, 16, 16, current->color);
+            current = current->next;
         }
 
         EndMode2D();
