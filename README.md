@@ -2,4 +2,4 @@
 
 Grabby aliens simulations.
 
-![grabby-aliens.png](README.assets/grabby-aliens.png)
+![grabby-aliens.gif](README.assets/grabby-aliens.gif)
