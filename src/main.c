@@ -152,8 +152,6 @@ int main() {
             current = current->next;
         }
 
-        printf("%d\n", count);
-
         if (timer < 0 && MAX_NODES > count) {
             node1.position.x = startPos1.x + layer * 16.0f;
             node1.position.y = startPos1.y;
