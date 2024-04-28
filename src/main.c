@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #define ZOOM_SPEED 0.025f
-#define MAX_NODES 1827
+#define MAX_NODES 5481
 
 typedef struct node {
     Vector2 position;
