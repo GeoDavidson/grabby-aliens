@@ -95,7 +95,42 @@ void check(node_t **head, node_t node) {
     }
 }
 
-int main() {
+void summonNodes(node_t **head, int layer, node_t *node1, node_t *node2, node_t *node3, Vector2 startPos1, Vector2 startPos2, Vector2 startPos3, float topValX, float bottomValX, float topValY, float bottomValY) {
+    node1->position.x = startPos1.x + layer * topValX;
+    node1->position.y = startPos1.y + layer * topValY;
+
+    check(head, *node1);
+
+    node2->position.x = startPos2.x + layer * topValX;
+    node2->position.y = startPos2.y + layer * topValY;
+
+    check(head, *node2);
+
+    node3->position.x = startPos3.x + layer * topValX;
+    node3->position.y = startPos3.y + layer * topValY;
+
+    check(head, *node3);
+
+    for (int i = 0; i < layer - 1; i++) {
+        node1->position.x += bottomValX;
+        node1->position.y += bottomValY;
+
+        check(head, *node1);
+
+        node2->position.x += bottomValX;
+        node2->position.y += bottomValY;
+
+        check(head, *node2);
+
+        node3->position.x += bottomValX;
+        node3->position.y += bottomValY;
+
+        check(head, *node3);
+    }
+}
+
+int main()
+{
     const int winWidth = 800;
     const int winHeight = 448;
 
@@ -153,130 +188,15 @@ int main() {
         }
 
         if (timer < 0 && MAX_NODES > count) {
-            node1.position.x = startPos1.x + layer * 16.0f;
-            node1.position.y = startPos1.y;
+            // bottom right
+            summonNodes(&head, layer, &node1, &node2, &node3, startPos1, startPos2, startPos3, 16, -16, 0, 16);
+            // bottom left
+            summonNodes(&head, layer, &node1, &node2, &node3, startPos1, startPos2, startPos3, 0, -16, 16, -16);
+            // top left
+            summonNodes(&head, layer, &node1, &node2, &node3, startPos1, startPos2, startPos3, -16, 16, 0, -16);
+            // top right
+            summonNodes(&head, layer, &node1, &node2, &node3, startPos1, startPos2, startPos3, 0, 16, -16, 16);
 
-            check(&head, node1);
-
-            node2.position.x = startPos2.x + layer * 16.0f;
-            node2.position.y = startPos2.y;
-
-            check(&head, node2);
-
-            node3.position.x = startPos3.x + layer * 16.0f;
-            node3.position.y = startPos3.y;
-
-            check(&head, node3);
-
-            for (int i = 0; i < layer - 1; i++) {
-                node1.position.x -= 16.0f;
-                node1.position.y += 16.0f;
-
-                check(&head, node1);
-
-                node2.position.x -= 16.0f;
-                node2.position.y += 16.0f;
-
-                check(&head, node2);
-
-                node3.position.x -= 16.0f;
-                node3.position.y += 16.0f;
-
-                check(&head, node3);
-            }
-            node1.position.x = startPos1.x;
-            node1.position.y = startPos1.y + layer * 16.0f;
-
-            check(&head, node1);
-
-            node2.position.x = startPos2.x;
-            node2.position.y = startPos2.y + layer * 16.0f;
-
-            check(&head, node2);
-
-            node3.position.x = startPos3.x;
-            node3.position.y = startPos3.y + layer * 16.0f;
-
-            check(&head, node3);
-
-            for (int i = 0; i < layer - 1; i++) {
-                node1.position.x -= 16.0f;
-                node1.position.y -= 16.0f;
-
-                check(&head, node1);
-
-                node2.position.x -= 16.0f;
-                node2.position.y -= 16.0f;
-
-                check(&head, node2);
-
-                node3.position.x -= 16.0f;
-                node3.position.y -= 16.0f;
-
-                check(&head, node3);
-            }
-            node1.position.x = startPos1.x + layer * -16.0f;
-            node1.position.y = startPos1.y;
-
-            check(&head, node1);
-
-            node2.position.x = startPos2.x + layer * -16.0f;
-            node2.position.y = startPos2.y;
-
-            check(&head, node2);
-
-            node3.position.x = startPos3.x + layer * -16.0f;
-            node3.position.y = startPos3.y;
-
-            check(&head, node3);
-
-            for (int i = 0; i < layer - 1; i++) {
-                node1.position.x += 16.0f;
-                node1.position.y -= 16.0f;
-
-                check(&head, node1);
-
-                node2.position.x += 16.0f;
-                node2.position.y -= 16.0f;
-
-                check(&head, node2);
-
-                node3.position.x += 16.0f;
-                node3.position.y -= 16.0f;
-
-                check(&head, node3);
-            }
-            node1.position.x = startPos1.x;
-            node1.position.y = startPos1.y + layer * -16.0f;
-
-            check(&head, node1);
-
-            node2.position.x = startPos2.x;
-            node2.position.y = startPos2.y + layer * -16.0f;
-
-            check(&head, node2);
-
-            node3.position.x = startPos3.x;
-            node3.position.y = startPos3.y + layer * -16.0f;
-
-            check(&head, node3);
-
-            for (int i = 0; i < layer - 1; i++) {
-                node1.position.x += 16.0f;
-                node1.position.y += 16.0f;
-
-                check(&head, node1);
-
-                node2.position.x += 16.0f;
-                node2.position.y += 16.0f;
-
-                check(&head, node2);
-
-                node3.position.x += 16.0f;
-                node3.position.y += 16.0f;
-
-                check(&head, node3);
-            }
             layer += 1;
             timer = 0.3;
         }
@@ -295,7 +215,7 @@ int main() {
 
         EndMode2D();
 
-        DrawText(TextFormat("%d", GetFPS()), 5, 5, 25, BLACK);
+        DrawFPS(5, 5);
 
         EndDrawing();
     }
